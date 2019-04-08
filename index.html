@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<style>
+    body{
+        width:100%;
+        height:100%;
+    }
+    .content{
+        height:100vh;
+        width:100vw;
+        background-color:black;
+    }
+    .window{
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        top:50px;
+        left:150px;
+        width:300px;
+        height:400px;
+    }
+    .handlebar{
+        cursor: move;
+        flex-shrink: 1;
+        min-height: 50px;
+        background-color:white;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    .window-content{
+        flex-grow: 1;
+        background-color: lightgrey;
+    }
+</style>
+
+<body>
+<div class="content">
+    <div class="window">
+        <div class="handlebar">
+            Drag me!
+        </div>
+        <div class="window-content">
+
+        </div>
+    </div>
+</div>
+
+<script src="main.js"></script>
+<script>
+    let draggable = new DraggableTransform(document.querySelector(".window"),
+        {
+            handlebar : document.querySelector(".handlebar")
+        }
+    );
+    console.log(draggable);
+</script>
+</body>
+</html>
