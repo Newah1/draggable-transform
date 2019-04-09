@@ -19,6 +19,12 @@ var DraggableTransform = /** @class */ (function () {
             x: 0,
             y: 0
         };
+        this.last_position = {
+            x: 0,
+            y: 0
+        };
+        this.mod_x = 0;
+        this.mod_y = 0;
         var defaults = {
             handlebar: false
         };
@@ -36,7 +42,7 @@ var DraggableTransform = /** @class */ (function () {
             self.drag(e);
         } });
         this.handlebar.addEventListener("mouseup", function (e) { _this.dragging = false; _this.mousedown = false; });
-        document.body.addEventListener("mouseup", function () {
+        document.body.addEventListener("mouseup", function (e) {
             if (_this.mousedown) {
                 _this.mousedown = false;
                 _this.dragging = false;
@@ -45,7 +51,6 @@ var DraggableTransform = /** @class */ (function () {
     }
     DraggableTransform.prototype.click = function (ev) {
         this.mousedown = true;
-        console.log(ev, this.start_pos, this.mousedown, "mouse down?");
         if (!this.has_clicked) {
             this.has_clicked = true;
             this.start_pos = {
@@ -53,19 +58,21 @@ var DraggableTransform = /** @class */ (function () {
                 y: ev.y
             };
         }
+        if (this.last_position.x !== 0 && this.last_position.y !== 0) {
+            this.mod_x = ev.x - (this.start_pos.x + this.last_position.x);
+            this.mod_y = ev.y - (this.start_pos.y + this.last_position.y);
+        }
     };
     DraggableTransform.prototype.drag = function (ev) {
         this.dragging = true;
         var positions = this.get_position_offsets(ev);
+        this.last_position = positions;
         this.element.style.transform = "translate(" + positions.x + "px," + positions.y + "px";
     };
     DraggableTransform.prototype.get_position_offsets = function (ev) {
         var bounding_rect = this.handlebar.getBoundingClientRect();
-        window.requestAnimationFrame(function () {
-            console.log(bounding_rect, (ev.x - bounding_rect.left));
-        });
-        var x = (ev.x - this.start_pos.x);
-        var y = (ev.y - this.start_pos.y);
+        var x = (ev.x - this.start_pos.x) - this.mod_x;
+        var y = (ev.y - this.start_pos.y) - this.mod_y;
         return {
             x: x,
             y: y
