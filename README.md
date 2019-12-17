@@ -1,6 +1,6 @@
 # DraggableTransform.js
 
-DraggableTransform.js is a small library intended to allow you to click and drag any element _completely using the css transform properties_.
+DraggableTransform.js is a small library intended to allow you to click and drag any element.
 
 ###### Use:
 
@@ -20,4 +20,4 @@ let draggable = new DraggableTransform(
 
 ###### Why? 
 
-Because dragging elements by absolute or fixed positioning is slow and resource heavy. The browser is forced to redraw the element on every animation frame, whereas the transform property is more likely to call on the end user's GPU, allowing the texture to be moved. Lightweight, easy to use - FUN!
+It's been done before, but I wanted to understand the logic behind a drag and drop JS call. It also helped me to better understand the potential performance benefits one can achieve by using transform vs absolute or fixed positioning. The transform property is more likely to call on the end user's GPU, allowing the texture to be moved. Lightweight, easy to use - FUN!
